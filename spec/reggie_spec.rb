@@ -116,4 +116,35 @@ describe Reggie do
   end
   # End #2 - Wildcard
 
+
+  # Lesson #2 - Zero or One Matching ( "?" character )
+  describe "zero or one" do
+    describe "/do?g/" do
+      it "matches 'dog'" do
+        regex = Reggie.new("/do?g/")
+        match = regex =~ "dog"
+        match.should eq(0)
+      end
+
+      it "matches 'dg'" do
+        regex = Reggie.new("/do?g/")
+        match = regex =~ "dg"
+        match.should eq(0)
+      end
+
+      it "doesn't match 'dag'" do
+        regex = Reggie.new("/do?g/")
+        match = regex =~ "dag"
+        match.should eq(nil)
+      end
+
+      it "doesn't match 'doog'" do
+        regex = Reggie.new("/do?g/")
+        match = regex =~ "doog"
+        match.should eq(nil)
+      end
+    end
+  end
+  # End #2 - Zero or One
+
 end

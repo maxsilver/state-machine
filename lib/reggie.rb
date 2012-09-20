@@ -18,14 +18,22 @@ class Reggie
       if (str[sindex] == @pattern[pindex])
         sindex += 1
         pindex += 1
-
         has_full_match = true if @pattern[pindex] == nil
 
       # pattern is wildcard. "d" == /./
       elsif (@pattern[pindex] == "." && !str[sindex].empty?)
         sindex += 1
         pindex += 1
+        has_full_match = true if @pattern[pindex] == nil
 
+      # if pattern is "?" (the zero-or-one is one, it already matched)
+      elsif (@pattern[pindex] == "?")
+        pindex += 1
+        has_full_match = true if @pattern[pindex] == nil
+
+      # if *next* pattern is "?" (the zero-to-one is a 'zero', won't match)
+      elsif (@pattern[pindex + 1] == "?")
+        pindex += 2
         has_full_match = true if @pattern[pindex] == nil
 
       else
