@@ -14,11 +14,20 @@ class Reggie
 
     loop do
 
-      if str[sindex] == @pattern[pindex]
+      # pattern and string letters match. "d" == /d/
+      if (str[sindex] == @pattern[pindex])
         sindex += 1
         pindex += 1
 
-        has_full_match = true if @pattern[pindex + 1] == nil
+        has_full_match = true if @pattern[pindex] == nil
+
+      # pattern is wildcard. "d" == /./
+      elsif (@pattern[pindex] == "." && !str[sindex].empty?)
+        sindex += 1
+        pindex += 1
+
+        has_full_match = true if @pattern[pindex] == nil
+
       else
         sindex += 1
         matched_offset = sindex

@@ -52,9 +52,68 @@ describe Reggie do
         match = regex =~ "sabed"
         match.should eq(nil)
       end
+
+      it "matches 'GVSU board of directors" do
+        regex = Reggie.new("/board/")
+        match = regex =~ "GVSU board of directors"
+        match.should eq(5)
+      end
+
     end
   end
   # End #2 - Concatenation
 
+
+  # Lesson #2 - Wildcard Matching
+  describe "wildcard" do
+    describe "/d.g/" do
+      it "matches 'dog'" do
+        regex = Reggie.new("/d.g/")
+        match = regex =~ "dog"
+        match.should eq(0)
+      end
+    end
+
+    describe "/c.r/" do
+      it "doesn't match 'cooper'" do
+        regex = Reggie.new("/c.r/")
+        match = regex =~ "cooper"
+        match.should eq(nil)
+      end
+
+      it "matches 'car'" do
+        regex = Reggie.new("/c.r/")
+        match = regex =~ "car"
+        match.should eq(0)
+      end
+    end
+
+    describe "/do.rk.../" do
+      it "matches 'doorknob'" do
+        regex = Reggie.new("/do.rk.../")
+        match = regex =~ "doorknob"
+        match.should eq(0)
+      end
+
+      it "matches 'shiny doorknobs" do
+        regex = Reggie.new("/do.rk.../")
+        match = regex =~ "shiny doorknobs"
+        match.should eq(6)
+      end
+
+      it "doesn't match 'dorkswag'" do
+        regex = Reggie.new("/do.rk.../")
+        match = regex =~ "dorkswag"
+        match.should eq(nil)
+      end
+
+      it "doesn't match 'doorkit'" do
+        regex = Reggie.new("/do.rk.../")
+        match = regex =~ "dorkit"
+        match.should eq(nil)
+      end
+    end
+  end
+  # End #2 - Wildcard
 
 end
