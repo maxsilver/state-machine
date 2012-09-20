@@ -8,6 +8,7 @@ describe Reggie do
   end
   # End Lesson 1
 
+
   # Lesson 2 - Matching Single Characters
   describe "matching single characters" do
     describe "/a/" do
@@ -33,6 +34,27 @@ describe Reggie do
     end
   end
   # End #2 - Matching Single Characters
+
+
+  # Lesson #2 - Concatenation
+  describe "concatenation" do
+    describe "/abed/" do
+      it "matches 'sabed'" do
+        regex = Reggie.new("/abed/")
+        match = regex =~ "sabed"
+        match.should eq(1)
+      end
+    end
+
+    describe "/board/" do
+      it "doesn't match 'sabed'" do
+        regex = Reggie.new("/board/")
+        match = regex =~ "sabed"
+        match.should eq(nil)
+      end
+    end
+  end
+  # End #2 - Concatenation
 
 
 end
